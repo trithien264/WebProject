@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8104D870-64F4-4FEE-8633-5FB7676F02C6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebBaseMVC</RootNamespace>
+    <AssemblyName>WebBaseMVC</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Authorize\" />
+    <Folder Include="Content\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AuthorizeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="CmHelper\web\AutHelper.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomModel\LoginModel.cs" />
+    <Compile Include="Models\CustomModel\UserLogin.cs" />
+    <Compile Include="Areas\Admin\Models\Framework\base_menu.cs" />
+    <Compile Include="Areas\Admin\Models\Framework\base_user.cs" />
+    <Compile Include="Areas\Admin\Models\Framework\base_userrights.cs" />
+    <Compile Include="Areas\Admin\Models\Framework\WebBaseDbContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Pub\data\flot-data.js" />
+    <Content Include="Pub\data\morris-data.js" />
+    <Content Include="Pub\dist\css\sb-admin-2.css" />
+    <Content Include="Pub\dist\css\sb-admin-2.min.css" />
+    <Content Include="Pub\dist\js\sb-admin-2.js" />
+    <Content Include="Pub\dist\js\sb-admin-2.min.js" />
+    <Content Include="Pub\js\sb-admin-2.js" />
+    <Content Include="Pub\vendor\bootstrap-social\bootstrap-social.css" />
+    <Content Include="Pub\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Pub\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Pub\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Pub\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Pub\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Pub\vendor\datatables-plugins\dataTables.bootstrap.css" />
+    <Content Include="Pub\vendor\datatables-plugins\dataTables.bootstrap.js" />
+    <Content Include="Pub\vendor\datatables-plugins\dataTables.bootstrap.min.js" />
+    <Content Include="Pub\vendor\datatables-plugins\index.html" />
+    <Content Include="Pub\vendor\datatables-responsive\dataTables.responsive.css" />
+    <Content Include="Pub\vendor\datatables-responsive\dataTables.responsive.js" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.bootstrap.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.bootstrap4.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.foundation.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.foundation.min.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.jqueryui.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.material.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.material.min.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.semanticui.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.semanticui.min.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.uikit.css" />
+    <Content Include="Pub\vendor\datatables\css\dataTables.uikit.min.css" />
+    <Content Include="Pub\vendor\datatables\css\jquery.dataTables.css" />
+    <Content Include="Pub\vendor\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="Pub\vendor\datatables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Pub\vendor\datatables\images\favicon.ico" />
+    <Content Include="Pub\vendor\datatables\images\sort_asc.png" />
+    <Content Include="Pub\vendor\datatables\images\sort_asc_disabled.png" />
+    <Content Include="Pub\vendor\datatables\images\sort_both.png" />
+    <Content Include="Pub\vendor\datatables\images\sort_desc.png" />
+    <Content Include="Pub\vendor\datatables\images\sort_desc_disabled.png" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.bootstrap.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.bootstrap.min.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.bootstrap4.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.foundation.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.foundation.min.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.jqueryui.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.jqueryui.min.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.material.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.material.min.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.semanticui.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.semanticui.min.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.uikit.js" />
+    <Content Include="Pub\vendor\datatables\js\dataTables.uikit.min.js" />
+    <Content Include="Pub\vendor\datatables\js\jquery.dataTables.js" />
+    <Content Include="Pub\vendor\datatables\js\jquery.dataTables.min.js" />
+    <Content Include="Pub\vendor\datatables\js\jquery.js" />
+    <Content Include="Pub\vendor\flot-tooltip\jquery.flot.tooltip.js" />
+    <Content Include="Pub\vendor\flot-tooltip\jquery.flot.tooltip.min.js" />
+    <Content Include="Pub\vendor\flot-tooltip\jquery.flot.tooltip.source.js" />
+    <Content Include="Pub\vendor\flot\excanvas.js" />
+    <Content Include="Pub\vendor\flot\excanvas.min.js" />
+    <Content Include="Pub\vendor\flot\jquery.colorhelpers.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.canvas.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.categories.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.crosshair.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.errorbars.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.fillbetween.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.image.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.navigate.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.pie.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.resize.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.selection.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.stack.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.symbol.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.threshold.js" />
+    <Content Include="Pub\vendor\flot\jquery.flot.time.js" />
+    <Content Include="Pub\vendor\flot\jquery.js" />
+    <Content Include="Pub\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Pub\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Pub\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Pub\vendor\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Pub\vendor\jquery\jquery.js" />
+    <Content Include="Pub\vendor\jquery\jquery.min.js" />
+    <Content Include="Pub\vendor\metisMenu\metisMenu.css" />
+    <Content Include="Pub\vendor\metisMenu\metisMenu.js" />
+    <Content Include="Pub\vendor\metisMenu\metisMenu.min.css" />
+    <Content Include="Pub\vendor\metisMenu\metisMenu.min.js" />
+    <Content Include="Pub\vendor\morrisjs\morris.css" />
+    <Content Include="Pub\vendor\morrisjs\morris.js" />
+    <Content Include="Pub\vendor\morrisjs\morris.min.js" />
+    <Content Include="Pub\vendor\raphael\raphael.js" />
+    <Content Include="Pub\vendor\raphael\raphael.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Pub\less\mixins.less" />
+    <Content Include="Pub\less\sb-admin-2.less" />
+    <Content Include="Pub\less\variables.less" />
+    <Content Include="Pub\vendor\bootstrap-social\bootstrap-social.less" />
+    <Content Include="Pub\vendor\bootstrap-social\bootstrap-social.scss" />
+    <Content Include="Pub\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Pub\vendor\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Pub\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Pub\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Pub\vendor\datatables-responsive\dataTables.responsive.scss" />
+    <Content Include="Pub\vendor\datatables\images\Sorting icons.psd" />
+    <Content Include="Pub\vendor\font-awesome\css\font-awesome.css.map" />
+    <Content Include="Pub\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Pub\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Pub\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Pub\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Pub\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Pub\vendor\font-awesome\less\animated.less" />
+    <Content Include="Pub\vendor\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Pub\vendor\font-awesome\less\core.less" />
+    <Content Include="Pub\vendor\font-awesome\less\extras.less" />
+    <Content Include="Pub\vendor\font-awesome\less\fixed-width.less" />
+    <Content Include="Pub\vendor\font-awesome\less\font-awesome.less" />
+    <Content Include="Pub\vendor\font-awesome\less\icons.less" />
+    <Content Include="Pub\vendor\font-awesome\less\larger.less" />
+    <Content Include="Pub\vendor\font-awesome\less\list.less" />
+    <Content Include="Pub\vendor\font-awesome\less\mixins.less" />
+    <Content Include="Pub\vendor\font-awesome\less\path.less" />
+    <Content Include="Pub\vendor\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Pub\vendor\font-awesome\less\screen-reader.less" />
+    <Content Include="Pub\vendor\font-awesome\less\spinning.less" />
+    <Content Include="Pub\vendor\font-awesome\less\stacked.less" />
+    <Content Include="Pub\vendor\font-awesome\less\variables.less" />
+    <Content Include="Pub\vendor\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_animated.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_core.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_extras.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_icons.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_larger.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_list.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_mixins.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_path.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_spinning.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_stacked.scss" />
+    <Content Include="Pub\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusService\BusService.csproj">
+      <Project>{5e2b357a-22ee-4876-9c71-16214b15b72f}</Project>
+      <Name>BusService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8091</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/WebBaseMVC</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
