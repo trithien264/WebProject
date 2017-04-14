@@ -12,7 +12,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var session = (UserLogin)Session[CmHelper.AutHelper.LoginUserKey];
+            var session = CmHelper.AutHelper.userLogin;
             if (session == null)
             {
                 //filterContext.Result= new RedirectToRouteResult(new RouteValueDictionary(new {controller="Login", action="Index",Area="Admin"}));

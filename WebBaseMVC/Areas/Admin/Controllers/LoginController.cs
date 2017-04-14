@@ -38,7 +38,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
                 UserLogin user = AutHelper.Instance.Login(model.UserName, model.Password);
                 if(user!=null)
                 {
-                    Session.Add(AutHelper.LoginUserKey, user);
+                    CmHelper.AutHelper.userLogin = user;
                     return RedirectToAction("Index", "Home");
                 }
                 else
