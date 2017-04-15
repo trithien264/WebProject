@@ -28,8 +28,8 @@
     <div id="wrapper">
         <!-- Navigation -->
         @*@Html.Partial("~/Areas/Admin/Views/Shared/MainMenu.cshtml", ViewBag.MainMenu)*@
-      @Html.Partial("MainMenu", new { model = ViewBag.MainMenu })
-       @*@{Html.RenderAction("MainMenu", "Home", new { area = "Admin" });}*@
+      @*@Html.Partial("MainMenu", new { model = ViewBag.MainMenu })*@
+       @{Html.RenderAction("MainMenu", "Home", new { area = "Admin" });}
         @*@{Html.RenderPartial("MainMenu");}*@
 
         <div id="page-wrapper">

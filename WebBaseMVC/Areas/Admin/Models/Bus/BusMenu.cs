@@ -10,10 +10,22 @@ namespace WebBaseMVC.Areas.Admin.Models.Bus
     {
         WebBaseDbContext dbcontext = null;
 
-        public List<base_menu> GetMainMenu()
+        public IEnumerable<Menu> GetMainMenu()
         {
-            dbcontext = new WebBaseDbContext();
-            return dbcontext.base_menu.ToList();
+            /*dbcontext = new WebBaseDbContext();
+            return dbcontext.base_menu.ToList();*/
+
+            var query = from row in dbcontext.base_menu
+                        select new Menu
+                        {
+                            menu_id = row.menu_id,
+                            up_menu_id = row.up_menu_id,
+                            menu_nm = row.menu_nm,                            
+                            link = row.link,
+                            ChildMenu = dbcontext.base_menu.Where(x => x.up_menu_id == row.menu_id).ToList()
+                        };
+
+            return query;
         }
     }
 }

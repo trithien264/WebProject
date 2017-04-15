@@ -12,6 +12,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            /*
             var session = CmHelper.AutHelper.userLogin;
             if (session == null)
             {
@@ -29,7 +30,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
                     ReturnHomePage(filterContext);
                 }
 
-            }
+            }*/
 
             base.OnActionExecuting(filterContext);
 

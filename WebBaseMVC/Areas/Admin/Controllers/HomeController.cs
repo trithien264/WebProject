@@ -15,7 +15,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
         public ActionResult Index()
         {
            
-            ViewBag.MainMenu = new BusMenu().GetMainMenu();
+            //ViewBag.MainMenu = new BusMenu().GetMainMenu();
             return View();
         }
 

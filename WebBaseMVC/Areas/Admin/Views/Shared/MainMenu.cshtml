@@ -1,4 +1,4 @@
-﻿@model List<WebBaseMVC.Areas.Admin.Models.Framework.base_menu>
+﻿@model IEnumerable<WebBaseMVC.Areas.Admin.Models.Bus.Menu>
 
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
@@ -14,10 +14,26 @@
                 </div>
                 <!-- /input-group -->
             </li>
-            @{
-                List<WebBaseMVC.Areas.Admin.Models.Framework.base_menu> li = Model;
-                
+
+            @helper ShowTree(IEnumerable<WebBaseMVC.Areas.Admin.Models.Bus.Menu> menus)
+            {
+                foreach (var item in menus)
+                {
+                    <li class="@(item.Children.Any() ? "dropdown-submenu" : "")">
+
+                        @Html.ActionLink(@item.menu_nm, actionName: "Category", controllerName: "Product",
+                    routeValues: new { Id = item.menu_id, productName = item.menu_nm}, htmlAttributes: null)
+                        @if (item.Children.Any())
+                        {
+                            <ul class="dropdown-menu">
+                                @ShowTree(item.Children)
+                            </ul>
+                        }
+                    </li>
+
+                }
             }
+            
             @*@foreach(var item in Model)
             {
                  <li>
