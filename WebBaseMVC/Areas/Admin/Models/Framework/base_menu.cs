@@ -5,6 +5,7 @@ namespace WebBaseMVC.Areas.Admin.Models.Framework
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class base_menu
     {
@@ -33,5 +34,7 @@ namespace WebBaseMVC.Areas.Admin.Models.Framework
 
         [StringLength(100)]
         public string icon { get; set; }
+        [NotMapped]
+        public  List<base_menu> ChildMenu { get; set; }
     }
 }

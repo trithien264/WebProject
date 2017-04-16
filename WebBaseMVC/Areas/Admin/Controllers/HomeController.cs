@@ -20,13 +20,19 @@ namespace WebBaseMVC.Areas.Admin.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult MainMenu()
+        public PartialViewResult LeftMenu()
         {           
             var res= new BusMenu().GetMainMenu();
-            return PartialView(res);            
+            ViewBag.Menu = res;
+
+            return PartialView();            
         }
 
-
+        [ChildActionOnly]
+        public PartialViewResult TopNavigation()
+        {           
+            return PartialView();            
+        }
 
 
 	}

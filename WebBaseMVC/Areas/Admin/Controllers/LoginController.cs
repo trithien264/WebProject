@@ -39,7 +39,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
                 if(user!=null)
                 {
                     CmHelper.AutHelper.userLogin = user;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home", new { area="Admin"});
                 }
                 else
                 {

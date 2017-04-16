@@ -12,7 +12,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            /*
+            
             var session = CmHelper.AutHelper.userLogin;
             if (session == null)
             {
@@ -30,7 +30,7 @@ namespace WebBaseMVC.Areas.Admin.Controllers
                     ReturnHomePage(filterContext);
                 }
 
-            }*/
+            }
 
             base.OnActionExecuting(filterContext);
 
@@ -38,7 +38,16 @@ namespace WebBaseMVC.Areas.Admin.Controllers
 
         public void ReturnHomePage(ActionExecutingContext filterContext)
         {
-            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = "Index", Area = "Admin" }));
+            RedirectToAction("Index", "Login", "Admin");
+            /*if(filterContext.IsChildAction)
+            {
+                
+            }
+            else
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = "Index", Area = "Admin" }));
+
+            }*/
         }
     }
 }

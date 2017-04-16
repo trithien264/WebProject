@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home Admin</title>
+
+    <link href="@Url.Content("~/Pub/sbadmin/vendor/bootstrap/css/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Pub/sbadmin/vendor/metisMenu/metisMenu.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Pub/sbadmin/dist/css/sb-admin-2.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Pub/sbadmin/vendor/morrisjs/morris.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Pub/sbadmin/vendor/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+    <script src="@Url.Content("~/Pub/sbadmin/vendor/jquery/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Pub/sbadmin/vendor/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Pub/sbadmin/vendor/metisMenu/metisMenu.min.js")"></script>
+    <script src="@Url.Content("~/Pub/sbadmin/vendor/raphael/raphael.min.js")"></script>
+    @*<script src="@Url.Content("~/Pub/sbadmin/vendor/morrisjs/morris.min.js")"></script>
+    <script src="@Url.Content("~/Pub/sbadmin/data/morris-data.js")"></script>*@
+    <script src="@Url.Content("~/Pub/sbadmin/dist/js/sb-admin-2.js")"></script>
+
+    <link href="@Url.Content("~/Pub/gentelella-master/build/css/custom.css")" rel="stylesheet">
+
+    <script>jQuery.ready()</script>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        @{Html.RenderPartial("Top");}
+        @{Html.RenderAction("MainMenu", "Home", new { area = "Admin" });}
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">@RenderSection("header", required: true)</h1>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+
+</body>
+</html>
