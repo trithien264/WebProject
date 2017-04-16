@@ -4,6 +4,77 @@
 }
 
 
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+                <!-- /input-group -->
+            </li>
+
+            @foreach (var mp in menuList.Where(p => p.up_menu_id == 0))
+            {
+
+                <li>
+                    <a href="@Url.Action(ViewContext.RouteData.GetRequiredString("action"),"Home", new { id = mp.menu_id })"><i class="fa fa-sitemap fa-fw"></i> @mp.menu_nm <span class="fa arrow"></span></a>
+                    @if (menuList.Count(p => p.up_menu_id == mp.menu_id) > 0)
+                    {
+                        @:<ul class="nav">
+                    }
+
+                    @RenderMenuItem(menuList, mp)
+
+                    @if (menuList.Count(p => p.up_menu_id == mp.menu_id) > 0)
+                    {
+                        @:
+                    </ul>
+
+
+                    }
+
+                </li>
+            }
+
+            @helper RenderMenuItem(List<WebBaseMVC.Areas.Admin.Models.Framework.base_menu> menuList, WebBaseMVC.Areas.Admin.Models.Framework.base_menu mi)
+{
+    foreach (var cp in menuList.Where(p => p.up_menu_id == mi.menu_id))
+    {
+        @:
+        <li>
+            @Html.ActionLink(cp.menu_nm, ViewContext.RouteData.GetRequiredString("action"), new { id = cp.menu_id })
+
+        if (menuList.Count(p => p.up_menu_id == cp.menu_id) > 0)
+        {
+            @:<ul>
+                    }
+
+                    @RenderMenuItem(menuList, cp)
+
+        if (menuList.Count(p => p.up_menu_id == cp.menu_id) > 0)
+        {
+            @:
+        </ul>
+                    }
+        else
+        {
+            @:
+        </li>
+                    }
+    }
+}
+        </ul>
+    </div>
+</div>
+
+
+
 
 
 
