@@ -1,8 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UserManage";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
+
 
 <style>
     .modal .modal-dialog {
@@ -22,12 +24,16 @@
 </div>
 
 <script>
+    
     app = angular.module('ngMasterAg', ['ngAnimate', 'ui.bootstrap', 'toastr', 'chieffancypants.loadingBar', 'ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection']);
     app.controller('MainPageCtrl', function ($scope, $modal, $timeout, $http, toastr, toastrConfig, cfpLoadingBar, uiGridConstants) {
+        debugger
         var optionsGrid = {
             gridId: "ngGridUser",
             url: "Apps.Manage.Base.Users.GetUsers",
-            params: [{}],            
+            myApp: app,
+            myCtrlArg: arguments,
+            params: [{}],
             columnDefs: [
                   {
                       name: 'h1',
@@ -35,14 +41,14 @@
                       cellTemplate: 'Apps/Manage/Base/templateControl/editButton.html',
                       width: 60
                   },
-                  { name: 'menu_id', headerCellTemplate: "menu_id" },
-                  { name: 'menu_nm', headerCellTemplate: "menu_nm" },
-                  { name: 'menu_nm_eng', headerCellTemplate: "menu_nm_eng" },
-                  { name: 'up_menu_id', headerCellTemplate: "up_menu_id" },
-                  { name: 'link', headerCellTemplate: "link" }
+                  { name: 'user_id', headerCellTemplate: "user_id" },
+                  { name: 'email', headerCellTemplate: "email" },
+                  { name: 'user_desc', headerCellTemplate: "user_desc" },
+                  { name: 'upd_date', headerCellTemplate: "upd_date" },
+                  { name: 'last_login', headerCellTemplate: "last_login" }
             ]
         }
-        debugger
+        
         NgJs.grid(optionsGrid);
     });
 </script>

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ngMasterAg">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,25 +9,54 @@
     <title>Gentelella Alela! | </title>
 
     <!-- Bootstrap -->
-    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css")" rel="stylesheet" />
     <!-- Font Awesome -->
-    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/font-awesome/css/font-awesome.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
     <!-- NProgress -->
-    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/nprogress/nprogress.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/nprogress/nprogress.css")" rel="stylesheet" />
     <!-- iCheck -->
-    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/iCheck/skins/flat/green.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/iCheck/skins/flat/green.css")" rel="stylesheet" />
 
     <!-- bootstrap-progressbar -->
-    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css")" rel="stylesheet" />
     <!-- JQVMap -->
     <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/jqvmap/dist/jqvmap.min.css")" rel="stylesheet" />
     <!-- bootstrap-daterangepicker -->
-    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.css")" rel="stylesheet" />
     <!-- Custom Theme Style -->
-    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/build/css/custom.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Pub/libLayout/gentelella-master/build/css/custom.min.css")" rel="stylesheet" />
+
+    @*Lib Angular*@
+    <script src="@Url.Content("~/Pub/libAngular/angularjs/angular.min.js")"></script>
+    <script src="@Url.Content("~/Pub/libAngular/angularjs/angular-animate.js")"></script>
+    <script src="@Url.Content("~/Pub/libAngular/angularjs/angular-touch.js")"></script>
+    <script src="@Url.Content("~/Pub/libAngular/angularjs/ui-grid/ui-grid.js")"></script>
+    @*Toastr and Progress*@
+    <script src="@Url.Content("~/Pub/libAngular/bootstrap/ui-bootstrap-tpls-0.13.4.js")"></script>
+    <link href="@Url.Content("~/Pub/libAngular/toas/css/toastr.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Pub/libAngular/toas/css/custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Pub/libAngular/toas/toastr.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Pub/libAngular/toas/toastr.tpl.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Pub/libAngular/loadingBar/loading-bar.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Pub/libAngular/loadingBar/loading-bar.js")"></script>
+    @*Custom Lib Angular*@
+<script src="@Url.Content("~/Pub/libAngular/customModule/Control/NgGrid.js")"></script>
+
+    <script>
+        var appMaster;
+        try {
+            angular.module("ngMasterAg");
+        } catch (e) {
+            appMaster = angular.module("ngMasterAg", ['ngTouch', 'ui.grid', 'ui.grid.pagination', 'toastr', 'chieffancypants.loadingBar', 'ngAnimate']);
+        }
+
+        appMaster.config(function (cfpLoadingBarProvider) {
+            cfpLoadingBarProvider.includeSpinner = true;
+        })
+    </script>
 </head>
 <body class="nav-md">
-    
+
     <div class="container body">
         <div class="main_container">
             @{Html.RenderAction("LeftMenu", "Home", new { area = "Admin" });}
@@ -35,7 +64,9 @@
             @{Html.RenderAction("TopNavigation", "Home", new { area = "Admin" });}
             <!-- /top navigation -->
             <!-- page content -->
-            @RenderBody()
+            <div class="right_col" role="main" style="min-height: 1704px;">
+                @RenderBody()
+            </div>
             <!-- /page content -->
             <!-- footer content -->
             <footer>

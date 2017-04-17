@@ -250,6 +250,7 @@
     <Compile Include="Areas\Admin\Controllers\AuthorizeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuManageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserManageController.cs" />
     <Compile Include="Areas\Admin\Models\Bus\BusMenu.cs" />
     <Compile Include="Areas\Admin\Models\Bus\Menu.cs" />
     <Compile Include="CmHelper\web\AutHelper.cs" />
@@ -324,6 +325,7 @@
     <Content Include="Pub\libAngular\contextMenu\contextMenu.js" />
     <Content Include="Pub\libAngular\contextMenu\ngContextMenu.js" />
     <Content Include="Pub\libAngular\contextMenu\styles.css" />
+    <Content Include="Pub\libAngular\customModule\Control\NgGrid.js" />
     <Content Include="Pub\libAngular\loadingBar\loading-bar.css" />
     <Content Include="Pub\libAngular\loadingBar\loading-bar.js" />
     <Content Include="Pub\libAngular\toas\app.js" />
@@ -2673,6 +2675,7 @@
     <Content Include="Pub\libLayout\gentelella-master\vendors\select2\docs\vendor\fonts\FontAwesome.otf" />
     <Content Include="Pub\libLayout\gentelella-master\vendors\starrr\Gruntfile.coffee" />
     <Content Include="Pub\libLayout\gentelella-master\vendors\starrr\src\starrr.coffee" />
+    <Content Include="Areas\Admin\Views\UserManage\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
