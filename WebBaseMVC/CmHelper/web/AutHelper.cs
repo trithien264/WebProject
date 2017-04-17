@@ -27,7 +27,11 @@ namespace WebBaseMVC.CmHelper
         {
             get
             {
-                return (UserLogin)System.Web.HttpContext.Current.Session[CmHelper.AutHelper.LoginUserKey];
+                var _userLogin = (UserLogin)System.Web.HttpContext.Current.Session[CmHelper.AutHelper.LoginUserKey];
+                if (_userLogin == null)
+                    _userLogin = new UserLogin();
+
+                return _userLogin;
             }
             set {
                 System.Web.HttpContext.Current.Session.Add(AutHelper.LoginUserKey, value); 

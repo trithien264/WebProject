@@ -1,0 +1,11 @@
+.ui-grid-header-cell {
+    padding: 2px 5px 5px 0px !important;
+    text-align: center;
+}
+.ui-grid-header-cell {
+    vertical-align:middle
+}
+.ui-grid-pager-panel
+{
+    background-color: #f3f3f3
+}
