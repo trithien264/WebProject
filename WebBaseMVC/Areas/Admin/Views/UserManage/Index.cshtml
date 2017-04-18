@@ -4,51 +4,39 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <style>
     .modal .modal-dialog {
         width: 70%;
     }
 </style>
-
 <div ng-controller="MainPageCtrl">
     <table>
         <tr>
             <td>
                 <input type="button" ng-click="newRow()" value="Add Rights" style="display:none">
-                <div ui-grid="ngGridUser" ui-grid-pagination class="grid" style="width: 800px">
+                <div ui-grid="ngGridUser" ui-grid-pagination class="grid" style="width: 800px"></div>
             </td>
         </tr>
     </table>
 </div>
 
 <script>
-    
     app = angular.module('ngMasterAg', ['ngAnimate', 'ui.bootstrap', 'toastr', 'chieffancypants.loadingBar', 'ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection']);
     app.controller('MainPageCtrl', function ($scope, $modal, $timeout, $http, toastr, toastrConfig, cfpLoadingBar, uiGridConstants) {
-        debugger
-        var optionsGrid = {
+        NgJs.Control.grid({
             gridId: "ngGridUser",
             url: "Apps.Manage.Base.Users.GetUsers",
-            myApp: app,
             myCtrlArg: arguments,
             params: [{}],
-            columnDefs: [
-                  {
-                      name: 'h1',
-                      displayName: '',
-                      cellTemplate: 'Apps/Manage/Base/templateControl/editButton.html',
-                      width: 60
-                  },
-                  { name: 'user_id', headerCellTemplate: "user_id" },
-                  { name: 'email', headerCellTemplate: "email" },
-                  { name: 'user_desc', headerCellTemplate: "user_desc" },
-                  { name: 'upd_date', headerCellTemplate: "upd_date" },
-                  { name: 'last_login', headerCellTemplate: "last_login" }
+            columnDefs: [                  
+                  { name: 'user_id' },
+                  { name: 'email'},
+                  { name: 'user_desc' },
+                  { name: 'upd_date' },
+                  { name: 'last_login'}
             ]
-        }
-        
-        NgJs.grid(optionsGrid);
+        });
     });
+
+    
 </script>
