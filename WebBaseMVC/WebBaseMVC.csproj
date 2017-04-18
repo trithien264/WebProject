@@ -251,12 +251,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthorizeController.cs" />
+    <Compile Include="Areas\Admin\Models\Bus\User\UserManage.cs" />
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManageController.cs" />
-    <Compile Include="Areas\Admin\Models\Bus\BusMenu.cs" />
-    <Compile Include="Areas\Admin\Models\Bus\Menu.cs" />
+    <Compile Include="Areas\Admin\Models\Bus\Menu\BusMenu.cs" />
+    <Compile Include="Areas\Admin\Models\Bus\Menu\Menu.cs" />
     <Compile Include="CmHelper\web\AutHelper.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

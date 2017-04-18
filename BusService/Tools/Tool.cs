@@ -15,7 +15,7 @@ namespace BusService.Tools
     {
         public static object ToObject(string jsonStr)
         {
-            var result = JsonConvert.DeserializeObject(jsonStr);
+            var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
             return result;
         }
     }

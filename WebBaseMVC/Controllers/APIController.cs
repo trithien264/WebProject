@@ -13,27 +13,9 @@ namespace WebBaseMVC.Controllers
 {
     public class APIController : Controller
     {
-        WebBaseDbContext dbcontext = null;
         public JsonResult Run(string JsService)
-        {            
-            return Json(new HttpService().Run(JsService));
-        }
-
-        
-
-	}
-
-    public class HttpService
-    {
-        WebBaseDbContext dbcontext = null;
-        public Dictionary<string,object> Run(string JsService)
         {
-            dbcontext = new WebBaseDbContext();   
-            List<base_user> user = dbcontext.base_user.ToList();
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add("Result", user);
-            dic.Add("AjaxError", 0);
-            return dic;
+            return Json(ServiceCaller.Instance.CallToDic(ServiceCaller.CallType.BaseCall, JsService));
         }
     }
 
@@ -210,43 +192,17 @@ namespace WebBaseMVC.Controllers
         {
             try
             {
-                int paramsIndex = service.IndexOf("$");
-                if (paramsIndex > 0)
-                {
-                    AppEventHanlder.Instance.SetServiceVarContent(service.Substring(paramsIndex + 1));
-                    service = service.Substring(0, paramsIndex);
-
-                }
-                // To PermissionCall as a new Session, so have to empty ServiceVarContent
-                // multiple service batches call, the first does not affect the second
-                else if (type == CallType.PermissionCall)
-                {
-                    AppEventHanlder.Instance.SetServiceVarContent(null);
-                }
-
-
                 int dotIndex = service.LastIndexOf(".");
                 if (dotIndex <= 0 || dotIndex >= service.Length - 1)
                     throw new ApplicationException("Invalid service:" + service);
                 string serviceId = service.Substring(0, dotIndex);
                 string command = service.Substring(dotIndex + 1);
-                //TODO: permissionCall should be allowed to judge the first authority, or the object has been instantiated
-                object serviceObj = ObjectFactory.Instance.Get(serviceId);
+
+                object serviceObj =Get<object>(serviceId);
                 if (serviceObj == null)
                     throw new ApplicationException("Service not found:" + serviceId);
 
-
-                if (type == CallType.PermissionCall)//"0")
-                {
-                    if (RightsAccessAttribute.Instance.HasRights(serviceObj, command))//Check Permission Attribute class and method                     
-                        return transactionCall(serviceObj, serviceId, command, args);
-                    else
-                        return permissionCall(serviceObj, serviceId, command, args);
-                }
-                else if (type == CallType.TransactionCall)//"1")
-                    return transactionCall(serviceObj, serviceId, command, args);
-                else
-                    return baseCall(serviceObj, serviceId, command, args);
+                return baseCall(serviceObj,serviceId, command, args);
 
 
             }
@@ -256,75 +212,30 @@ namespace WebBaseMVC.Controllers
             }
         }
 
-        protected virtual object permissionCall(object serviceObj, string serviceId, string command, params object[] args)
-        {
-            /*string objKind = "Ajax";
-
-            string objId = serviceId + "." + command;
-            string userId = AuthenticateHelper.Instance.UserID;
-            string userIP = AppEventHanlder.Instance.UserHost;
-
-
-            if (DBRightsProvider.Instance.HasServiceRight("SupperAdmin", serviceId, command, userIP, userId) || DBRightsProvider.Instance.HasServiceRight("RightMenu", serviceId, command, userIP, userId))//UserInterFace || SupperAdmin || RightsMenu
-            {
-                return transactionCall(serviceObj, serviceId, command, args);
-            }
-
-            if (userId == null)
-                throw new NSNeedLoginException(objKind + "." + objId);
-            else
-                throw new NSNoPermissionException(userId + ":" + objKind + "." + objId);*/
-
-
-        }
-
-
-        protected virtual object transactionCall(object serviceObj, string serviceId, string command, params object[] args)
-        {
-            /*DBHelper.Instance.SetDefaultTran();
-            try
-            {
-                object ret = baseCall(serviceObj, serviceId, command, args);
-                NService.DDD.DomainContext.Instace.Submit();
-                //if (AppEventHanlder.Instance.UserHost != "172.19.6.86")
-                DBHelper.Instance.CommitTran();
-                //if (AppEventHanlder.Instance.UserHost == "172.19.6.86")
-                //    DBHelper.Instance.RollbackTran();
-                //DealOtherDeal();
-                //2011.10.19 Changed to CommitTran implementation
-                //if (HttpContext.Current.Items["__OTHERDEALS"] != null && HttpContext.Current.Items["__OTHERDEALS"].ToString() == "1")
-                //    dealAllEx(false);    / / Start the implementation of processing order (already in the implementation will not be implemented)
-                // If you just interrupt here, then the trouble? In particular, there are a lot of DealOtherDeal, may lose a lot
-                // In addition there are problems in the order? Such as the first off error, the second off normal, it is possible that the program did not think the first customs clearance than the first?
-                return ret;
-            }
-            catch
-            {
-                NService.DDD.DomainContext.Instace.Reset();
-                DBHelper.Instance.RollbackTran();
-                throw;
-            }*/
-        }
-
-
         protected virtual object baseCall(object serviceObj, string serviceId, string command, params object[] args)
         {
             try
             {
+                //Type calledType = Type.GetType(serviceId);
+                /*Type calledType = CreateObject(objectType, dll, args, ref dyDll, objectType == objectID);
 
-                if (serviceObj is IService)
-                {
-                    return (serviceObj as IService).Call(command, args);
-                }
-                else
-                {
-                    return serviceObj.GetType().InvokeMember(
-                        command
-                        , BindingFlags.Default | BindingFlags.InvokeMethod
-                        , null
-                        , serviceObj
-                        , args);
-                }
+                return calledType.InvokeMember(
+                    command
+                    , BindingFlags.Default | BindingFlags.InvokeMethod
+                    , null
+                    , calledType
+                    , args);*/
+
+
+                
+                return serviceObj.GetType().InvokeMember(
+                    command
+                    , BindingFlags.Default | BindingFlags.InvokeMethod
+                    , null
+                    , serviceObj
+                    , args);
+                
+
             }
             catch (TargetInvocationException tex)
             {
@@ -362,10 +273,122 @@ namespace WebBaseMVC.Controllers
             }
         }
 
-    }
 
-    public interface IService
-    {
-        object Call(string command, object[] args);
+        static object _lockGetLockObjId = new object();
+        static Dictionary<string, object> _lockID = new Dictionary<string, object>();
+        static object getLockObj(string objectID)
+        {
+            lock (_lockGetLockObjId)
+            {
+                if (!_lockID.ContainsKey(objectID))
+                {
+                    _lockID.Add(objectID, new object());
+                }
+                return _lockID[objectID];
+            }
+        }
+        public T Get<T>(string objectID)
+        {
+            string cacheKey = objectID;
+          
+
+            lock (getLockObj(cacheKey))
+            {
+
+                string objectType = objectID;
+                T ret = default(T);
+                string dll = null;
+                object[] args = null;
+                string url = null;
+                Dictionary<string, object> soapHeader = null;
+                string dyDll = null;
+
+                Dictionary<string, object> fields = null;               
+                
+                ret = CreateObject<T>(objectType, dll, args, ref dyDll, objectType == objectID);
+
+            
+
+
+                return ret;
+            }
+        }
+
+        public T CreateObject<T>(string objectType, string dll, object[] args, ref string dyDll, bool tryT) 
+        {
+            T ret = default(T);
+            Type t = GetType<T>(objectType, dll, ref dyDll, tryT);
+            if (t != null)
+            {
+                FieldInfo fi = t.GetField("Instance", BindingFlags.Public | BindingFlags.Static);
+               
+
+                if (ret == null)
+                {
+                    try
+                    {
+                        ret = (T)Activator.CreateInstance(t, args);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Exception 'ObjectFactory.CreateObject': " + ex.InnerException.Message.ToString(), ex.InnerException == null ? ex : ex.InnerException);
+                    }
+                }
+            }
+
+            return ret;
+        }
+        public Type GetType<T>(string objectType, string dll, ref string dyDll, bool tryT)
+        {
+            Type t = null;
+            string tType = tryT && typeof(T) != typeof(object) && typeof(T).FullName != objectType && !typeof(T).IsInterface && !typeof(T).IsAbstract ? typeof(T).FullName : null;
+
+
+            Assembly[] asses = System.AppDomain.CurrentDomain.GetAssemblies();
+            Dictionary<string, int> repeatAsses = new Dictionary<string, int>();
+            foreach (Assembly ass in asses)
+            {
+                if (!ass.GlobalAssemblyCache)
+                {
+                    if (!repeatAsses.ContainsKey(ass.FullName))
+                        repeatAsses.Add(ass.FullName, 0);
+                    repeatAsses[ass.FullName]++;
+                }
+            }
+            foreach (Assembly ass in asses)
+            {
+                //Not find. Net itself as a service object?
+                if (!ass.GlobalAssemblyCache)
+                {
+                    t = ass.GetType(objectType, false);
+                    if (t != null)
+                    {
+                        // TODO: Exclude those who are dynamic dll, but can not find, that obsolete, a new version
+                        // TODO: If you need to reference in the app or dll third-party dll, do not want it into the bin directory, it is possible
+                        // But with the version number, keep consistent
+
+                        // This is usually used to find the way, if not cache, expired, there should be the latest version of the
+                        if (repeatAsses[ass.FullName] == 1)
+                            break;
+                    }
+                    else if (tType != null)
+                    {
+                        t = ass.GetType(tType, false);
+                        if (t != null)
+                        {
+                            if (repeatAsses[ass.FullName] == 1)
+                                break;
+                        }
+                    }
+                }
+            }
+
+
+            if (t == null && tType != null)
+                t = typeof(T);
+            return t;
+        }
+
+
     }
 }

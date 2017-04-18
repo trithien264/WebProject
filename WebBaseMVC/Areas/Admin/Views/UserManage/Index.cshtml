@@ -25,7 +25,7 @@
     app.controller('MainPageCtrl', function ($scope, $modal, $timeout, $http, toastr, toastrConfig, cfpLoadingBar, uiGridConstants) {
         NgJs.Control.grid({
             gridId: "ngGridUser",
-            url: "Apps.Manage.Base.Users.GetUsers",
+            url: "WebBaseMVC.Areas.Admin.Models.Bus.UserManage.GetListUserAll",
             myCtrlArg: arguments,
             params: [{}],
             columnDefs: [                  
