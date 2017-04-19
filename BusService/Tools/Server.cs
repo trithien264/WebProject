@@ -103,7 +103,7 @@ namespace BusService.Tools
                             args = new object[tmp.Count];
                             tmp.CopyTo(args);
                         }
-                        else
+                        /*else
                         {
                             try
                             {
@@ -122,7 +122,7 @@ namespace BusService.Tools
                                
                             }
                            
-                        }
+                        }*/
                     }
                     //Development test, you can specify the delay to test the network, database busy
                     if (dic.ContainsKey("callDelay"))
@@ -212,13 +212,11 @@ namespace BusService.Tools
                 string serviceId = service.Substring(0, dotIndex);
                 string command = service.Substring(dotIndex + 1);
 
-                object serviceObj = Get<object>(serviceId);
+                object serviceObj = ObjectFactory.Instance.Get<object>(serviceId);
                 if (serviceObj == null)
                     throw new ApplicationException("Service not found:" + serviceId);
 
                 return baseCall(serviceObj, serviceId, command, args);
-
-
             }
             finally
             {
@@ -230,18 +228,6 @@ namespace BusService.Tools
         {
             try
             {
-                //Type calledType = Type.GetType(serviceId);
-                /*Type calledType = CreateObject(objectType, dll, args, ref dyDll, objectType == objectID);
-
-                return calledType.InvokeMember(
-                    command
-                    , BindingFlags.Default | BindingFlags.InvokeMethod
-                    , null
-                    , calledType
-                    , args);*/
-
-
-
                 return serviceObj.GetType().InvokeMember(
                     command
                     , BindingFlags.Default | BindingFlags.InvokeMethod
@@ -285,7 +271,13 @@ namespace BusService.Tools
                 //Tool.Error("Exception Server.ServiceCaller.baseCall",ex.Message,"Params",argInfo);
                 throw new ApplicationException("Exception Server.ServiceCaller.baseCall: " + ex.Message + "; Params:" + argInfo);
             }
-        }
+        }        
+
+    }
+
+    public class ObjectFactory
+    {
+        public static readonly ObjectFactory Instance = new ObjectFactory();
 
 
         static object _lockGetLockObjId = new object();
@@ -357,16 +349,16 @@ namespace BusService.Tools
             Type t = null;
             string tType = tryT && typeof(T) != typeof(object) && typeof(T).FullName != objectType && !typeof(T).IsInterface && !typeof(T).IsAbstract ? typeof(T).FullName : null;
             Dictionary<string, int> repeatAsses = new Dictionary<string, int>();
-            Assembly[] asses=null;
+            Assembly[] asses = null;
             Assembly v_ass = System.AppDomain.CurrentDomain.GetAssemblies().Where(es => es.FullName.Contains(objectType.Split('.')[0])).FirstOrDefault();
             if (v_ass != null)
             {
                 asses = new Assembly[1];
                 asses[0] = v_ass;
-            }                
+            }
             else
-               asses = System.AppDomain.CurrentDomain.GetAssemblies();
-            
+                asses = System.AppDomain.CurrentDomain.GetAssemblies();
+
             foreach (Assembly ass in asses)
             {
                 if (!ass.GlobalAssemblyCache)
@@ -409,7 +401,6 @@ namespace BusService.Tools
                 t = typeof(T);
             return t;
         }
-
 
     }
 }

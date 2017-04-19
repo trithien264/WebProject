@@ -107,12 +107,22 @@
                         entity.end_mk = "N";
                         if (entity.disabled_mk && entity.disabled_mk == true)
                             entity.end_mk = "Y";
-                        delete entity.disabled_mk;
-                        delete entity._typeModal;
+                        delete entity.disabled_mk;                       
+
+                        /*debugger
+                        var response = $http({
+                            method: "post",
+                            url: "SaveUserInfo",
+                            data: JSON.stringify(entity),
+                            dataType: "json"
+                        }).then(function (data) {
+                           debugger
+
+                        });*/
 
                         NgJs.Service.call({
                             url: "WebBaseMVC.Areas.Admin.Models.Bus.UserManage.SaveUser",
-                            params: entity,
+                            params: [entity],
                             myCtrlArg: myCtrlArg                            
                         }).then(function (data) {
                             NgJs.grid(optionsGrid);
