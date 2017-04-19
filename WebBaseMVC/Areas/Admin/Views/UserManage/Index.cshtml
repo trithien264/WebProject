@@ -1,9 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "UserManage";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <style>
     .modal .modal-dialog {
         width: 70%;
@@ -14,29 +12,160 @@
         <tr>
             <td>
                 <input type="button" ng-click="newRow()" value="Add Rights" style="display:none">
-                <div ui-grid="ngGridUser" ui-grid-pagination class="grid" style="width: 800px"></div>
+                <div ui-grid="ngGridUser" ui-grid-pagination class="grid" style="width: 800px">
             </td>
         </tr>
     </table>
 </div>
 
+
+
+
 <script>
+
     app = angular.module('ngMasterAg', ['ngAnimate', 'ui.bootstrap', 'toastr', 'chieffancypants.loadingBar', 'ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection']);
     app.controller('MainPageCtrl', function ($scope, $modal, $timeout, $http, toastr, toastrConfig, cfpLoadingBar, uiGridConstants) {
-        NgJs.Control.grid({
+        var myCtrlArg = arguments;
+        
+        var optionsGrid = {
             gridId: "ngGridUser",
             url: "WebBaseMVC.Areas.Admin.Models.Bus.UserManage.GetListUserAll",
-            myCtrlArg: arguments,
-            params: [{}],
-            columnDefs: [                  
-                  { name: 'user_id' },
-                  { name: 'email'},
-                  { name: 'user_desc' },
-                  { name: 'upd_date' },
-                  { name: 'last_login'}
+            params: null,
+            myCtrlArg: myCtrlArg,
+            columnDefs: [
+                  {
+                      name: 'h1',
+                      displayName: '',
+                      cellTemplate: '@Url.Content("~/Pub/libAngular/templateControl/Form/editButton.html")',
+                      width: 60
+                  },
+                  { name: 'user_id', headerCellTemplate: "<n-lang>USER_ID</n-lang>" },
+                  { name: 'email', headerCellTemplate: "<n-lang>EMAIL</n-lang>" },
+                  { name: 'user_desc', headerCellTemplate: "<n-lang>USER_DESC</n-lang>" },
+                  { name: 'disabled_mk', headerCellTemplate: "<n-lang>STOP_MK</n-lang>" },
+                  { name: 'last_login', headerCellTemplate: "<n-lang>LAST_LOGIN</n-lang>" },
             ]
-        });
+        }
+        NgJs.Control.grid(optionsGrid);
+
+        $scope.editRow = function (grid, row) {
+            if (!row.entity._typeModal)
+                row.entity._typeModal = "_edit";
+            var modalInstance = $modal.open({
+                templateUrl: '@Url.Content("~/Pub/libAngular/templateControl/Form/editorWindowModal.html")',
+                controller: ['$http', '$modalInstance', 'grid', 'row', ModalInstanceCtrl],
+                scope: $scope,
+                backdrop: "static",
+                resolve: {
+                    grid: function () {
+                        return grid;
+                    },
+                    row: function () {
+                        return row;
+                    }
+                }
+            });
+
+        }
+
+        $scope.newRow = function () {
+            entity = {
+                _typeModal: "_new",
+            };
+            var row_tmp = {};
+            row_tmp.entity = entity;
+            $scope.editRow(optionsGrid, row_tmp);
+        }
+
+
+        $scope.deleteRow = function (grid, row) {
+            row.entity._typeModal = "_delete";
+            var modalInstance = $modal.open({
+                templateUrl: '@Url.Content("~/Pub/libAngular/templateControl/Form/deleteModal.html")',
+                controller: ['$http', '$modalInstance', 'grid', 'row', ModalInstanceCtrl],
+                scope: $scope,
+                backdrop: "static",
+                resolve: {
+                    grid: function () {
+                        return grid;
+                    },
+                    row: function () {
+                        return row;
+                    }
+                }
+            });
+
+        }
+
+
+
+        var ModalInstanceCtrl = function ($http, $modalInstance, grid, row) {
+            $scope.entity = angular.copy(row.entity);
+            $scope.ok = function (answer, entity) {
+                if (answer == "ok") {
+                    if (entity._typeModal == "_edit") {
+                        entity.end_mk = "N";
+                        if (entity.disabled_mk && entity.disabled_mk == true)
+                            entity.end_mk = "Y";
+                        delete entity.disabled_mk;
+                        delete entity._typeModal;
+
+                        NgJs.Service.call({
+                            url: "WebBaseMVC.Areas.Admin.Models.Bus.UserManage.SaveUser",
+                            params: entity,
+                            myCtrlArg: myCtrlArg                            
+                        }).then(function (data) {
+                            NgJs.grid(optionsGrid);
+
+                        });
+                    }
+                    else if (entity._typeModal == "_new") {
+                        NgJs.Service.call({
+                            url: "Apps.Manage.Base.Users.AddUsers",
+                            params: [entity],
+                            myCtrlArg: myCtrlArg
+                        }).then(function (data) {
+                            NgJs.grid(optionsGrid);
+                        });
+                    }
+                    else if (entity._typeModal == "_delete") {
+                        NgJs.Service.call({
+                            url: "Apps.Manage.Base.Users.DeleteUsers",
+                            params: [entity],
+                            myCtrlArg: myCtrlArg
+                        }).then(function (data) {
+                            NgJs.grid(optionsGrid);
+
+                        });
+                    }
+                }
+
+                $modalInstance.close();
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
+        
     });
 
-    
+    /*app.directive('myDragabledialog', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attr) {
+                $(elem.parent()).draggable();
+            }
+        }
+    });*/
+    app.directive('myBodydialog', function () {
+        return {
+            restrict: 'A',
+            templateUrl: '@Url.Content("~/Pub/libAngular/templateControl/Custom/UserManage/editUsersModal.html")'
+
+        }
+    });
+
 </script>
+
+
+

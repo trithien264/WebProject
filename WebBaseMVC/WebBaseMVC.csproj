@@ -116,10 +116,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Authorize\" />
-    <Folder Include="Areas\Admin\Views\Server\" />
     <Folder Include="Content\" />
     <Folder Include="Models\API\" />
     <Folder Include="Models\Bus\User\" />
+    <Folder Include="Pub\libAngular\customModule\Net\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\autosize\example\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\bootstrap-progressbar\less\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\bootstrap-progressbar\scss\" />
@@ -241,8 +241,6 @@
     <Folder Include="Pub\libLayout\gentelella-master\vendors\starrr\dist\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\switchery\dist\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\transitionize\dist\" />
-    <Folder Include="Views\Login\" />
-    <Folder Include="Views\Server\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +271,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pub\libAngular\customModule\Service\Service.js" />
+    <Content Include="Pub\libAngular\customModule\Util\Tool.js" />
+    <Content Include="Pub\libAngular\templateControl\Custom\UserManage\editUsersModal.html" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\Antlr3.Runtime.pdb" />
     <Content Include="bin\BusService.dll" />
@@ -331,10 +332,14 @@
     <Content Include="Pub\libAngular\contextMenu\ngContextMenu.js" />
     <Content Include="Pub\libAngular\contextMenu\styles.css" />
     <Content Include="Pub\libAngular\customModule\Control\NgGrid.js" />
-    <Content Include="Pub\libAngular\customModule\Net\Url.js" />
+    <Content Include="Pub\libAngular\customModule\Service\Url.js" />
     <Content Include="Pub\libAngular\customModule\_bk\NgGrid.js" />
     <Content Include="Pub\libAngular\loadingBar\loading-bar.css" />
     <Content Include="Pub\libAngular\loadingBar\loading-bar.js" />
+    <Content Include="Pub\libAngular\templateControl\Form\deleteButton.html" />
+    <Content Include="Pub\libAngular\templateControl\Form\deleteModal.html" />
+    <Content Include="Pub\libAngular\templateControl\Form\editButton.html" />
+    <Content Include="Pub\libAngular\templateControl\Form\editorWindowModal.html" />
     <Content Include="Pub\libAngular\toas\app.js" />
     <Content Include="Pub\libAngular\toas\css\custom.css" />
     <Content Include="Pub\libAngular\toas\css\toastr.css" />
@@ -2703,7 +2708,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
-    <Content Include="Views\API\Run.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="exception\BusException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Server.cs" />
     <Compile Include="Tools\Tool.cs" />
   </ItemGroup>
   <ItemGroup>

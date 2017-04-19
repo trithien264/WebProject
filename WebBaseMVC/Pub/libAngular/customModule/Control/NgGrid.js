@@ -18,7 +18,7 @@ NgJs.Control = (function () {
             customOptions: {}
         };
         var options = $.extend(defaults, options);
-        options = NgJs_grid_addCtrlArgOptions(options);
+        options = options = NgJs.Tool.addCtrlArgOptions(options); 
 
 
         //Button Search Click
@@ -26,22 +26,9 @@ NgJs.Control = (function () {
             options.params = [options.$scope.modelsData];
             NgJs_grid_callData(options);
         }
-
         //call to service
         NgJs_grid_callData(options);
     };
-
-    //add the list controller arguments to options
-    NgJs_grid_addCtrlArgOptions = function (options) {
-        var injects = options.myCtrlArg.callee.$inject;
-        for (var i = 0; i < injects.length; ++i) {
-            var key = injects[i];
-            var value = options.myCtrlArg.callee.arguments[i];
-            options[key] = value;
-        }
-        return options;
-    };
-
 
     //call to service
     NgJs_grid_callData = function (options) {
@@ -90,11 +77,11 @@ NgJs.Control = (function () {
         var JsService = {};
         JsService.service = options.url;
         JsService.params = options.params;
-
+        
         return options.$http({
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            url: NgJs.Net.getUrl(),
+            url: NgJs.Service.Url.getUrl(),
             data: $.param({ JsService: JSON.stringify(JsService) })
         }).success(function (data, status, headers, config) {
             //get grid Object

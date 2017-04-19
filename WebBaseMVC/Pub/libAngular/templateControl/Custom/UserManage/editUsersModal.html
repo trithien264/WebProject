@@ -1,0 +1,17 @@
+﻿
+<table cellpadding="3" cellspacing="0" class="table table-bordered">
+    <tr>
+        <th><n-lang>USER_ID</n-lang></th>
+        <td><input class="input" type="text" disabled value="{{entity.user_id}}" /></td>
+
+        <th>EMAIL</th>
+        <td><input class="input" type="text" ng-model="entity.email" disabled /></td>
+    </tr>    
+    <tr>
+        <th nowrap><n-lang>USER_DESC</n-lang></th>
+        <td><input class="input" type="text" ng-model="entity.user_desc" /></td>
+        <th><n-lang>DISABLED</n-lang>: </th>
+        <td><input id="stop_mk" type="checkbox" ng-model="entity.disabled_mk" /></td> 
+    </tr>      
+</table>
+
