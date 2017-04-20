@@ -1,17 +1,14 @@
-﻿var NgJs = NgJs || {}; //x = a || b; (a, b đều là object) thì x = a nếu a khác null trái lại x = b.
-NgJs.Service = (function () {
+﻿(function () {
     //Main function
-    NgJs_service_init = function (options) {
-        var defaults = {
-            url: "",
-            params: [{}]           
+    NgJs_service_init = function (url, params, options) {
+        var defaults = {                 
         };
         var options = $.extend(defaults, options);
-        
-
+        options.url = url;       
+        options.params = params;
         options = NgJs.Tool.addCtrlArgOptions(options);
         //call to service
-        NgJs_callService(options);
+        return NgJs_callService(options);
     };
      
 
@@ -47,7 +44,7 @@ NgJs.Service = (function () {
             url: NgJs.Service.Url.getUrl(),
             data: $.param({ JsService: JSON.stringify(JsService) })
         }).success(function (data, status, headers, config) {
-
+            debugger
             //get grid Object
             if (data.AjaxError == 0) {
                 if (haveLoading)
@@ -86,7 +83,7 @@ NgJs.Service = (function () {
         call: this.NgJs_service_init
     };
 
-}).call(this);
+})();
 
 
 

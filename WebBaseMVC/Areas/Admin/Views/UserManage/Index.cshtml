@@ -2,6 +2,7 @@
     ViewBag.Title = "UserManage";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 <style>
     .modal .modal-dialog {
         width: 70%;
@@ -23,14 +24,13 @@
 
 <script>
 
+    NgJs.using("Control.NgGrid");
+
     app = angular.module('ngMasterAg', ['ngAnimate', 'ui.bootstrap', 'toastr', 'chieffancypants.loadingBar', 'ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection']);
     app.controller('MainPageCtrl', function ($scope, $modal, $timeout, $http, toastr, toastrConfig, cfpLoadingBar, uiGridConstants) {
         var myCtrlArg = arguments;
-        
         var optionsGrid = {
-            gridId: "ngGridUser",
-            url: "WebBaseMVC.Areas.Admin.Models.Bus.UserManage.GetListUserAll",
-            params: null,
+            gridId: "ngGridUser",         
             myCtrlArg: myCtrlArg,
             columnDefs: [
                   {
@@ -46,7 +46,8 @@
                   { name: 'last_login', headerCellTemplate: "<n-lang>LAST_LOGIN</n-lang>" },
             ]
         }
-        NgJs.Control.grid(optionsGrid);
+        
+        NgJs.Control.NgGrid.grid("WebBaseMVC.API.Admin.User.UserManage.GetListUserAll", null, optionsGrid);
 
         $scope.editRow = function (grid, row) {
             if (!row.entity._typeModal)
@@ -107,31 +108,18 @@
                         entity.end_mk = "N";
                         if (entity.disabled_mk && entity.disabled_mk == true)
                             entity.end_mk = "Y";
-                        delete entity.disabled_mk;                       
+                        delete entity.disabled_mk;
 
-                        /*debugger
-                        var response = $http({
-                            method: "post",
-                            url: "SaveUserInfo",
-                            data: JSON.stringify(entity),
-                            dataType: "json"
-                        }).then(function (data) {
-                           debugger
-
-                        });*/
-
-                        NgJs.Service.call({
-                            url: "WebBaseMVC.Areas.Admin.Models.Bus.UserManage.SaveUser",
-                            params: [entity],
+                        NgJs.Net.Service.call("WebBaseMVC.API.Admin.User.UserManage.UpdateUser",[entity],{
                             myCtrlArg: myCtrlArg                            
                         }).then(function (data) {
+                            debugger
                             NgJs.grid(optionsGrid);
-
                         });
                     }
                     else if (entity._typeModal == "_new") {
                         NgJs.Service.call({
-                            url: "Apps.Manage.Base.Users.AddUsers",
+                            url: "WebBaseMVC.API.Admin.User.UserManage.AddUsers",
                             params: [entity],
                             myCtrlArg: myCtrlArg
                         }).then(function (data) {
@@ -140,7 +128,7 @@
                     }
                     else if (entity._typeModal == "_delete") {
                         NgJs.Service.call({
-                            url: "Apps.Manage.Base.Users.DeleteUsers",
+                            url: "WebBaseMVC.API.Admin.User.UserManage.DeleteUsers",
                             params: [entity],
                             myCtrlArg: myCtrlArg
                         }).then(function (data) {
@@ -175,7 +163,19 @@
         }
     });
 
+    /*debugger
+                        var response = $http({
+                            method: "post",
+                            url: "SaveUserInfo",
+                            data: JSON.stringify(entity),
+                            dataType: "json"
+                        }).then(function (data) {
+                           debugger
+
+                        });*/
+
 </script>
 
 
 
+                        

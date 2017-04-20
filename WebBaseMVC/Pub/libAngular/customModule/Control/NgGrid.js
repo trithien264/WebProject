@@ -1,11 +1,11 @@
-﻿var NgJs = NgJs || {}; //x = a || b; (a, b đều là object) thì x = a nếu a khác null trái lại x = b.
+﻿NgJs.using("Util.Tool")
+.using("Net.Url");
 
-NgJs.Control = (function () {
+(function () {
     //Main function
-    NgJs_grid_init = function (options) {
+    NgJs_grid_init = function (url, params, options) {
+        
         var defaults = {
-            url: "",
-            params: [{}],
             ngFactortyId: "ngFactortyId",
             paginationPageSize: 5,
             paginationPageSizes: [5, 10, 100],
@@ -18,7 +18,10 @@ NgJs.Control = (function () {
             customOptions: {}
         };
         var options = $.extend(defaults, options);
-        options = options = NgJs.Tool.addCtrlArgOptions(options); 
+        options.url = url;
+        options.params = params;
+
+        options = NgJs.Util.Tool.addCtrlArgOptions(options);
 
 
         //Button Search Click
@@ -52,7 +55,7 @@ NgJs.Control = (function () {
 
         //*** Begin Config Grid ***
         //Set option
-        
+
         if (!angular.equals({}, options.customOptions))//custom Attribute for Grid
         {
             options.$scope[options.gridId] = options.customOptions;
@@ -69,19 +72,19 @@ NgJs.Control = (function () {
             }
         }
         //*** End Config Grid ***
-        
-        
+
+
 
         options.$scope.fireFlag = true;
 
         var JsService = {};
         JsService.service = options.url;
         JsService.params = options.params;
-        
+
         return options.$http({
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            url: NgJs.Service.Url.getUrl(),
+            url: NgJs.Net.Url.getUrl(),
             data: $.param({ JsService: JSON.stringify(JsService) })
         }).success(function (data, status, headers, config) {
             //get grid Object
@@ -100,15 +103,15 @@ NgJs.Control = (function () {
             if (data.AjaxError == 0) {
                 if (haveLoading)
                     options.cfpLoadingBar.complete();
-                options.$scope.fireFlag = false;                       
+                options.$scope.fireFlag = false;
 
                 if (data && data.AjaxError == 0) {
                     if (data.Result == null) {
                         _objGird.data = [];
                         _objGird.data.length = 0;
                     }
-                    else {                        
-                        _objGird.data = data.Result;                       
+                    else {
+                        _objGird.data = data.Result;
                     }
                 }
             }
@@ -138,7 +141,7 @@ NgJs.Control = (function () {
             options.$scope.fireFlag = false;
             return null;
         });
-       
+
     };
 
 
@@ -146,7 +149,6 @@ NgJs.Control = (function () {
         grid: this.NgJs_grid_init
     };
 
-}).call(this);
-
+})();
 
 

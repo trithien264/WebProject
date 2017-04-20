@@ -21,28 +21,9 @@ namespace BusService.Tools
 
        
         public static T ToObject<T>(Dictionary<string, object> dict)
-        {           
-            return (T)ToObject(dict, typeof(T));
-        }
-        public static Object ToObject(Dictionary<string, object> dict, Type type)
         {
-            var obj = Activator.CreateInstance(type);
-
-            foreach (var kv in dict)
-            {
-                var prop = type.GetProperty(kv.Key);
-                if (prop == null) continue;
-
-                object value = kv.Value;
-                if (value is Dictionary<string, object>)
-                {
-                    value = ToObject((Dictionary<string, object>)value, prop.PropertyType); // <= This line
-                }
-
-                prop.SetValue(obj, value, null);
-            }
-            return obj;
-        }
+            return (T)JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(dict));
+        }        
         public static object ToObject(string jsonStr)
         {
             if (jsonStr == null || jsonStr.Length == 0)
