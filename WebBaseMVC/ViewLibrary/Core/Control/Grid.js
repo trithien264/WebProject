@@ -1,10 +1,13 @@
-﻿NgJs.using("Util.Tool")
-.using("Net.Url");
+﻿NgJs.using("Core.Util.Tool")
+.using("Core.Net.Url");
 
 (function () {
     //Main function
-    NgJs_grid_init = function (url, params, options) {
-        
+    NgJs_grid_init = function (url, params, options) {        
+        if (!url) {
+            alert("Url is requied!!!");
+            return;
+        }             
         var defaults = {
             ngFactortyId: "ngFactortyId",
             paginationPageSize: 5,
@@ -18,10 +21,11 @@
             customOptions: {}
         };
         var options = $.extend(defaults, options);
+       
         options.url = url;
         options.params = params;
 
-        options = NgJs.Util.Tool.addCtrlArgOptions(options);
+        options = NgJs.Core.Util.Tool.addCtrlArgOptions(options, options.myCtrlArg);
 
 
         //Button Search Click
@@ -84,7 +88,7 @@
         return options.$http({
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            url: NgJs.Net.Url.getUrl(),
+            url: NgJs.Core.Net.Url.getUrl(),
             data: $.param({ JsService: JSON.stringify(JsService) })
         }).success(function (data, status, headers, config) {
             //get grid Object
@@ -146,7 +150,7 @@
 
 
     return {
-        grid: this.NgJs_grid_init
+        bind: this.NgJs_grid_init
     };
 
 })();

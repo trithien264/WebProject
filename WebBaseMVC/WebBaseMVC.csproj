@@ -117,6 +117,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Authorize\" />
     <Folder Include="Content\" />
+    <Folder Include="Pub\libAngular\customModule\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\autosize\example\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\bootstrap-progressbar\less\" />
     <Folder Include="Pub\libLayout\gentelella-master\vendors\bootstrap-progressbar\scss\" />
@@ -268,11 +269,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pub\libAngular\customModule\Net\Service.js" />
-    <Content Include="Pub\libAngular\customModule\NgJs.js" />
-    <Content Include="Pub\libAngular\customModule\Test\callTest.js" />
-    <Content Include="Pub\libAngular\customModule\Util\Tool.js" />
-    <Content Include="Pub\libAngular\customModule\_bk\NgJs.js" />
+    <Content Include="ViewLibrary\Core\Control\Window.js" />
+    <Content Include="ViewLibrary\Core\Net\Service.js" />
+    <Content Include="ViewLibrary\NgJs.js" />
+    <Content Include="ViewLibrary\Core\Test\callTest.js" />
+    <Content Include="ViewLibrary\Core\Util\Tool.js" />
+    <Content Include="_bk\NgJs.js" />
     <Content Include="Pub\libAngular\templateControl\Custom\UserManage\editUsersModal.html" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\Antlr3.Runtime.pdb" />
@@ -331,9 +333,9 @@
     <Content Include="Pub\libAngular\contextMenu\contextMenu.js" />
     <Content Include="Pub\libAngular\contextMenu\ngContextMenu.js" />
     <Content Include="Pub\libAngular\contextMenu\styles.css" />
-    <Content Include="Pub\libAngular\customModule\Control\NgGrid.js" />
-    <Content Include="Pub\libAngular\customModule\Net\Url.js" />
-    <Content Include="Pub\libAngular\customModule\_bk\NgGrid.js" />
+    <Content Include="ViewLibrary\Core\Control\Grid.js" />
+    <Content Include="ViewLibrary\Core\Net\Url.js" />
+    <Content Include="_bk\NgGrid.js" />
     <Content Include="Pub\libAngular\loadingBar\loading-bar.css" />
     <Content Include="Pub\libAngular\loadingBar\loading-bar.js" />
     <Content Include="Pub\libAngular\templateControl\Form\deleteButton.html" />

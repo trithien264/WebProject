@@ -1,5 +1,5 @@
 ﻿NgJs=(function () {
-    _rootLib = "http://localhost/WebBaseMVC/Pub/libAngular/customModule";
+    _rootLib = "http://localhost/WebBaseMVC/ViewLibrary";
 
     /**Tool Lib**/
     String.prototype.replaceAll = function (search, replacement) {
@@ -16,21 +16,9 @@
             async: false
         });
     };
+  
 
-    _addObjectByString = function(obj, path) {
-        var paths = path.split('.')
-        current = obj;        
-        for (i = 0; i < paths.length; ++i) {
-            if (current[paths[i]] == undefined) {
-                return undefined;
-            } else {
-                current = current[paths[i]];
-            }
-        }
-        return current;
-    }
-
-    setByPath = function (obj, path, value) {
+    _setObjectByPath = function (obj, path, value) {
         var parts = path.split('.');
         var o = obj;
         if (parts.length > 1) {
@@ -44,13 +32,34 @@
         o[parts[parts.length - 1]] = value;
     }
 
+    _getObjectByPath = function (obj, value) {
+        value = value.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        value = value.replace(/^\./, '');           // strip a leading dot
+        var a = value.split('.');
+        for (var i = 0, n = a.length; i < n; ++i) {
+            var k = a[i];
+            if (k in obj) {
+                obj = obj[k];
+            } else {
+                return;
+            }
+        }
+        return obj;
+    }
+
     /***** Class ******/
     function _NgJs() {
-        function using(path) {            
+        function using(path) {
+           
             $.loadScript(path, function (data) {                
                 var func = eval(data);                
-                setByPath(NgJs, path, func);  
+                _setObjectByPath(NgJs, path, func);
+                return func;
             });
+            
+            /*obj = getByPath(NgJs, path);
+            if (obj)
+                return obj;*/
             return this;
         }
 

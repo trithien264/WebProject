@@ -2,35 +2,35 @@
     ViewBag.Title = "UserManage";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <style>
     .modal .modal-dialog {
         width: 70%;
     }
+    
 </style>
 <div ng-controller="MainPageCtrl">
     <table>
         <tr>
             <td>
-                <input type="button" ng-click="newRow()" value="Add Rights" style="display:none">
-                <div ui-grid="ngGridUser" ui-grid-pagination class="grid" style="width: 800px">
+                <input type="button" ng-click="newRow()" value="Add Rights">
+                <div ui-grid="ngGridUser" ui-grid-pagination class="gird" style="width:800px" >
             </td>
         </tr>
     </table>
 </div>
-
-
-
-
 <script>
+    NgJs.using("Core.Control.Grid")
+    .using("Core.Util.Tool")
+    .using("Core.Control.Window")
+    .using("Core.Net.Service");
 
-    NgJs.using("Control.NgGrid");
-
+    var NgGrid = NgJs.Core.Util.Tool.getObjectByPath(NgJs, "Core.Control.Grid");
+    
     app = angular.module('ngMasterAg', ['ngAnimate', 'ui.bootstrap', 'toastr', 'chieffancypants.loadingBar', 'ngTouch', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection']);
     app.controller('MainPageCtrl', function ($scope, $modal, $timeout, $http, toastr, toastrConfig, cfpLoadingBar, uiGridConstants) {
         var myCtrlArg = arguments;
         var optionsGrid = {
-            gridId: "ngGridUser",         
+            gridId: "ngGridUser",
             myCtrlArg: myCtrlArg,
             columnDefs: [
                   {
@@ -46,96 +46,53 @@
                   { name: 'last_login', headerCellTemplate: "<n-lang>LAST_LOGIN</n-lang>" },
             ]
         }
-        
-        NgJs.Control.NgGrid.grid("WebBaseMVC.API.Admin.User.UserManage.GetListUserAll", null, optionsGrid);
 
+        NgJs.Core.Control.Grid.bind("WebBaseMVC.API.Admin.User.UserManage.GetListUserAll", null, optionsGrid);
+
+        //Edit Event
         $scope.editRow = function (grid, row) {
-            if (!row.entity._typeModal)
-                row.entity._typeModal = "_edit";
-            var modalInstance = $modal.open({
-                templateUrl: '@Url.Content("~/Pub/libAngular/templateControl/Form/editorWindowModal.html")',
-                controller: ['$http', '$modalInstance', 'grid', 'row', ModalInstanceCtrl],
-                scope: $scope,
-                backdrop: "static",
-                resolve: {
-                    grid: function () {
-                        return grid;
-                    },
-                    row: function () {
-                        return row;
-                    }
-                }
+            NgJs.Core.Control.Window.open('@Url.Content("~/Pub/libAngular/templateControl/Form/editorWindowModal.html")', {
+                myCtrlArg: myCtrlArg
+                , callModalCtrl: fnEditModalInstanceCtrl
+                , myGrid: grid
+                , myGridRow: row
             });
-
         }
 
+        //New Event
         $scope.newRow = function () {
-            entity = {
-                _typeModal: "_new",
-            };
-            var row_tmp = {};
-            row_tmp.entity = entity;
-            $scope.editRow(optionsGrid, row_tmp);
-        }
-
-
-        $scope.deleteRow = function (grid, row) {
-            row.entity._typeModal = "_delete";
-            var modalInstance = $modal.open({
-                templateUrl: '@Url.Content("~/Pub/libAngular/templateControl/Form/deleteModal.html")',
-                controller: ['$http', '$modalInstance', 'grid', 'row', ModalInstanceCtrl],
-                scope: $scope,
-                backdrop: "static",
-                resolve: {
-                    grid: function () {
-                        return grid;
-                    },
-                    row: function () {
-                        return row;
-                    }
-                }
+            NgJs.Core.Control.Window.open('@Url.Content("~/Pub/libAngular/templateControl/Form/editorWindowModal.html")', {
+                myCtrlArg: myCtrlArg
+                , callModalCtrl: fnAddModalInstanceCtrl
+                , myGrid: {}
+                , myGridRow: {}
             });
-
         }
 
+        //Delete Event
+        $scope.deleteRow = function (grid, row) {           
+            NgJs.Core.Control.Window.open('@Url.Content("~/Pub/libAngular/templateControl/Form/deleteModal.html")', {
+                myCtrlArg: myCtrlArg
+                , callModalCtrl: fnDeleteModalInstanceCtrl
+                , myGrid: grid
+                , myGridRow: row
+            });
+        }
 
-
-        var ModalInstanceCtrl = function ($http, $modalInstance, grid, row) {
+        var fnEditModalInstanceCtrl = function ($http, $modalInstance, grid, row) {            
             $scope.entity = angular.copy(row.entity);
             $scope.ok = function (answer, entity) {
                 if (answer == "ok") {
-                    if (entity._typeModal == "_edit") {
-                        entity.end_mk = "N";
-                        if (entity.disabled_mk && entity.disabled_mk == true)
-                            entity.end_mk = "Y";
-                        delete entity.disabled_mk;
+                    entity.end_mk = "N";
+                    if (entity.disabled_mk && entity.disabled_mk == true)
+                        entity.end_mk = "Y";
+                    delete entity.disabled_mk;
 
-                        NgJs.Net.Service.call("WebBaseMVC.API.Admin.User.UserManage.UpdateUser",[entity],{
-                            myCtrlArg: myCtrlArg                            
-                        }).then(function (data) {
-                            debugger
-                            NgJs.grid(optionsGrid);
-                        });
-                    }
-                    else if (entity._typeModal == "_new") {
-                        NgJs.Service.call({
-                            url: "WebBaseMVC.API.Admin.User.UserManage.AddUsers",
-                            params: [entity],
-                            myCtrlArg: myCtrlArg
-                        }).then(function (data) {
-                            NgJs.grid(optionsGrid);
-                        });
-                    }
-                    else if (entity._typeModal == "_delete") {
-                        NgJs.Service.call({
-                            url: "WebBaseMVC.API.Admin.User.UserManage.DeleteUsers",
-                            params: [entity],
-                            myCtrlArg: myCtrlArg
-                        }).then(function (data) {
-                            NgJs.grid(optionsGrid);
-
-                        });
-                    }
+                    NgJs.Core.Net.Service.call("WebBaseMVC.API.Admin.User.UserManage.UpdateUser", [entity], {
+                        myCtrlArg: myCtrlArg
+                    }).then(function (data) {                        
+                        NgGrid.bind("WebBaseMVC.API.Admin.User.UserManage.GetListUserAll", null, optionsGrid);
+                    });
                 }
 
                 $modalInstance.close();
@@ -144,17 +101,48 @@
                 $modalInstance.dismiss('cancel');
             };
         };
-        
+
+        var fnAddModalInstanceCtrl = function ($http, $modalInstance, grid, row) {
+            $scope.entity = angular.copy(row.entity);
+            $scope.ok = function (answer, entity) {
+                if (answer == "ok") {                    
+                    NgJs.Core.Net.Service.call("WebBaseMVC.API.Admin.User.UserManage.AddUsers", [entity], {
+                        myCtrlArg: myCtrlArg
+                    }).then(function (data) {                        
+                        NgJs.Core.grid("WebBaseMVC.API.Admin.User.UserManage.GetListUserAll", null, optionsGrid);
+                        $modalInstance.close();
+                    });
+                    
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+        }
+
+        var fnDeleteModalInstanceCtrl = function ($http, $modalInstance, grid, row) {
+            $scope.entity = angular.copy(row.entity);
+            $scope.ok = function (answer, entity) {
+                if (answer == "ok") {
+                    NgJs.Core.Service.call({
+                        url: "WebBaseMVC.API.Admin.User.UserManage.DeleteUsers",
+                        params: [entity],
+                        myCtrlArg: myCtrlArg
+                    }).then(function (data) {
+                        NgJs.Core.grid("WebBaseMVC.API.Admin.User.UserManage.GetListUserAll", null, optionsGrid);
+
+                    });
+                }
+                $modalInstance.close();
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
+
     });
 
-    /*app.directive('myDragabledialog', function () {
-        return {
-            restrict: 'A',
-            link: function (scope, elem, attr) {
-                $(elem.parent()).draggable();
-            }
-        }
-    });*/
+   
     app.directive('myBodydialog', function () {
         return {
             restrict: 'A',
@@ -162,6 +150,15 @@
 
         }
     });
+
+    /*app.directive('myDragabledialog', function () {
+       return {
+           restrict: 'A',
+           link: function (scope, elem, attr) {
+               $(elem.parent()).draggable();
+           }
+       }
+   });*/
 
     /*debugger
                         var response = $http({
@@ -175,7 +172,3 @@
                         });*/
 
 </script>
-
-
-
-                        
