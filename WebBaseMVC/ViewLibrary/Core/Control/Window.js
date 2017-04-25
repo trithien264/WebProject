@@ -10,7 +10,7 @@
         };
         
         var options = $.extend(defaults, options);
-        options = NgJs.Core.Util.Tool.addCtrlArgOptions(options, options.myCtrlArg);
+        options = NgJs.Core.Util.Tool.addCtrlArgOptions(options, options.myCtrlArg); 
         
         var modalInstance = options.$modal.open({
             templateUrl: templateUrl,
