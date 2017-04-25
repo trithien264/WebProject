@@ -4,7 +4,9 @@
     //Main function
     openWin = function (templateUrl, options) {
 
-        var defaults = {            
+        var defaults = {
+            myGrid: {}
+            , myGridRow: {}
         };
         
         var options = $.extend(defaults, options);
