@@ -1,17 +1,23 @@
-﻿var NgJs = NgJs || {}; //x = a || b; (a, b đều là object) thì x = a nếu a khác null trái lại x = b.
-NgJs.Service = (function () {
+﻿NgJs.using("Core.Util.Tool")
+.using("Core.Net.Url");
+
+(function () {
     //Main function
-    NgJs_service_init = function (options) {
-        var defaults = {
-            url: "",
-            params: [{}]           
+    NgJs_service_init = function (url, params, options) {
+        if (!url) {
+            alert("Url is requied!!!");
+            return;
+        }
+        
+        var defaults = {                 
         };
         var options = $.extend(defaults, options);
-        
 
-        options = NgJs.Tool.addCtrlArgOptions(options);
+        options.url = url;       
+        options.params = params;
+        options = NgJs.Core.Util.Tool.addCtrlArgOptions(options, options.myCtrlArg);
         //call to service
-        NgJs_callService(options);
+        return NgJs_callService(options);
     };
      
 
@@ -44,10 +50,9 @@ NgJs.Service = (function () {
         return options.$http({
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            url: NgJs.Service.Url.getUrl(),
+            url: NgJs.Core.Net.Url.getUrl(),
             data: $.param({ JsService: JSON.stringify(JsService) })
-        }).success(function (data, status, headers, config) {
-
+        }).success(function (data, status, headers, config) {            
             //get grid Object
             if (data.AjaxError == 0) {
                 if (haveLoading)
@@ -86,7 +91,7 @@ NgJs.Service = (function () {
         call: this.NgJs_service_init
     };
 
-}).call(this);
+})();
 
 
 

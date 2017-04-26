@@ -19,6 +19,13 @@ namespace WebBaseMVC.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult Test()
+        {
+
+            //ViewBag.MainMenu = new BusMenu().GetMainMenu();
+            return View();
+        }
+
         [ChildActionOnly]
         public PartialViewResult LeftMenu()
         {           

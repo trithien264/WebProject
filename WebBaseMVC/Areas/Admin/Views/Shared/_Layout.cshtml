@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gentelella Alela! | </title>
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/jquery/dist/jquery.min.js")"></script>
 
     @*Layout*@
     <!-- Bootstrap -->
@@ -15,6 +17,10 @@
     <link href="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />    
     <!-- Custom Theme Style -->
     <link href="@Url.Content("~/Pub/libLayout/gentelella-master/build/css/custom.min.css")" rel="stylesheet" />
+
+    @*Custom Lib NgJs*@
+    <script src="@Url.Content("~/ViewLibrary/NgJs.js")"></script>
+
 
     @*Lib Angular*@
     <script src="@Url.Content("~/Pub/libAngular/angularjs/angular.min.js")"></script>
@@ -32,11 +38,8 @@
     <script src="@Url.Content("~/Pub/libAngular/toas/toastr.tpl.js")" type="text/javascript"></script>
     <link href="@Url.Content("~/Pub/libAngular/loadingBar/loading-bar.css")" rel="stylesheet" />
     <script src="@Url.Content("~/Pub/libAngular/loadingBar/loading-bar.js")"></script>
-    @*Custom Lib Angular*@  
-    <script src="@Url.Content("~/Pub/libAngular/customModule/Service/Service.js")"></script>  
-    <script src="@Url.Content("~/Pub/libAngular/customModule/Service/Url.js")"></script>
-    <script src="@Url.Content("~/Pub/libAngular/customModule/Control/NgGrid.js")"></script>
-    <script src="@Url.Content("~/Pub/libAngular/customModule/Util/Tool.js")"></script>
+
+
     <script>
         var appMaster;
         try {
@@ -75,10 +78,9 @@
     </div>
 
     @*Layout*@
-    <!-- jQuery -->
-    <script src="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/jquery/dist/jquery.min.js")"></script>
+
     <!-- Bootstrap -->
-    <script src="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js")"></script>    
+    <script src="@Url.Content("~/Pub/libLayout/gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js")"></script>
     <!-- Custom Theme Scripts -->
     <script src="@Url.Content("~/Pub/libLayout/gentelella-master/build/js/custom.min.js")"></script>
 

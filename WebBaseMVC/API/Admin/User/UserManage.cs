@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebBaseMVC.Areas.Admin.Models.Framework;
 
-namespace WebBaseMVC.Areas.Admin.Models.Bus
+namespace WebBaseMVC.API.Admin.User
 {
     public class UserManage : Controller
     {
@@ -18,17 +18,13 @@ namespace WebBaseMVC.Areas.Admin.Models.Bus
             return dbcontext.base_user.ToList();     
         }
 
-        public string SaveUser(base_user user)
-        {
-            dbcontext = new WebBaseDbContext();
-            return "";
-        }
 
-        public string SaveUser(Dictionary<string,object> dic)
+        public string UpdateUser(Dictionary<string, object> dic)
         {
-            string json=JsonConvert.SerializeObject(dic);
+            //string json=JsonConvert.SerializeObject(dic);
+            //base_user model = JsonConvert.DeserializeObject<base_user>(json);  
 
-            base_user model = JsonConvert.DeserializeObject<base_user>(json);           
+            base_user model = Tool.ToObject<base_user>(dic);
             dbcontext = new WebBaseDbContext();            
 
             if(ModelState.IsValid)
