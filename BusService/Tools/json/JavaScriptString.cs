@@ -9,7 +9,7 @@ namespace BusService.Tools
         private int _index;
         private string _s;
 
-        internal JavaScriptString(string s)
+        internal JavaScriptString(string s) 
         {
             this._s = s;
         }
